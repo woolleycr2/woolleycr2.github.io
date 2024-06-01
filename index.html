@@ -1,8 +1,43 @@
-<html>
-  <head>
-    <title>My Website</title>
-  </head>
-  <body>
-    <h1>Welcome To My Website!!</h1>
-  </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seats with RGB</title>
+    <style>
+        .seat {
+            display: inline-block;
+            margin: 10px;
+            padding: 20px;
+            border: 1px solid black;
+        }
+    </style>
+    <script>
+        function updateSeat(seatId, color) {
+            fetch('/update_seat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ seat_id: seatId, color: color })
+            });
+        }
+        
+        function colorPickerChanged(seatId, event) {
+            const color = event.target.value;
+            updateSeat(seatId, color);
+        }
+    </script>
+</head>
+<body>
+    <div class="seat" id="seat1">
+        <p>Seat 1</p>
+        <input type="color" onchange="colorPickerChanged(1, event)">
+    </div>
+    <div class="seat" id="seat2">
+        <p>Seat 2</p>
+        <input type="color" onchange="colorPickerChanged(2, event)">
+    </div>
+    <!-- Add more seats as needed -->
+</body>
 </html>
